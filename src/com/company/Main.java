@@ -24,7 +24,7 @@ class Countdown{
     private int i;
     //By adding the synchronized condition we avoid the race condition(Thread interference)
     //By adding the synchronized void doCountdown and one thread can access it at a time
-    public synchronized void doCountdown(){
+    public void doCountdown(){
         String color;
         switch(Thread.currentThread().getName()){
             case "Thread 1":
@@ -38,9 +38,15 @@ class Countdown{
 
         }
         // if we use a local variable i it is stored in the thread stack so thread 1 cant access thread's 2 stack and vice versa
-        for(i=10;i>0;i--){
-            System.out.println(color+Thread.currentThread().getName()+":i="+i);
+        //We can synchronize a block of code that share the same info like below
+        //however if we do synchronized(color) it wont work since color here is a a local variable which is stored in the thread stack
+        //thus the other thread wont access it. we have to use an object that is used by both threads thus here we use this
+        synchronized (this){
+            for(i=10;i>0;i--){
+                System.out.println(color+Thread.currentThread().getName()+":i="+i);
+            }
         }
+
     }
 }
 class CountdownThread extends Thread{
