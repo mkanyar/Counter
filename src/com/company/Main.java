@@ -3,12 +3,14 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-
-        Countdown countdown1=new Countdown();
-        Countdown countdown2=new Countdown();
-	CountdownThread t1=new CountdownThread(countdown1);
+          //This can work here but it can't be optimized in real world since for eg we cant create an object
+        //for each thread that access a bank account
+//        Countdown countdown1=new Countdown();
+//        Countdown countdown2=new Countdown();
+        Countdown countdown=new Countdown();
+	CountdownThread t1=new CountdownThread(countdown);
 	t1.setName("Thread 1");
-	CountdownThread t2 = new CountdownThread(countdown2);
+	CountdownThread t2 = new CountdownThread(countdown);
 	t2.setName("Thread 2");
 	t1.start();
 	t2.start();
@@ -20,7 +22,9 @@ class Countdown{
     // if i is changed the thread that is going to access it is going to read the last value of i
     // so if they print the same value they access i when it is the same value
     private int i;
-    public void doCountdown(){
+    //By adding the synchronized condition we avoid the race condition(Thread interference)
+    //By adding the synchronized void doCountdown and one thread can access it at a time
+    public synchronized void doCountdown(){
         String color;
         switch(Thread.currentThread().getName()){
             case "Thread 1":
