@@ -41,11 +41,11 @@ class Countdown{
         //We can synchronize a block of code that share the same info like below
         //however if we do synchronized(color) it wont work since color here is a a local variable which is stored in the thread stack
         //thus the other thread wont access it. we have to use an object that is used by both threads thus here we use this
-        synchronized (this){
+//        synchronized (this){
             for(i=10;i>0;i--){
                 System.out.println(color+Thread.currentThread().getName()+":i="+i);
             }
-        }
+//        }
 
     }
 }
