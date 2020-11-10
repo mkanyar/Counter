@@ -18,7 +18,7 @@ public class Main {
 }
 class Countdown{
     // this i is stored on the heap, therefore if we use this the threads use the same value of i
-//    that is the reason why it we get let lines printed since the i can be changed by both threads thus
+//    that is the reason why we get lines printed since the i can be changed by both threads thus
     // if i is changed the thread that is going to access it is going to read the last value of i
     // so if they print the same value they access i when it is the same value
     private int i;
